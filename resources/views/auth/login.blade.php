@@ -24,7 +24,7 @@
                         @endif
                         <h1 class="h4 text-gray-900 mb-4">Please Login</h1>
                     </div>
-                    <form class="user" action="" method="POST">
+                    <form class="user" action="{{ route('login.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <input type="text" name="login" class="form-control form-control-custom mb-4" id="login"

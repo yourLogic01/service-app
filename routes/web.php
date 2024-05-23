@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -24,16 +26,77 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/order', [OrderController::class, 'index'])->name('order');
+// Route::get('/order', [OrderController::class, 'index'])->name('order');
 // blog
 Route::get('/post', [PostController::class, 'index'])->name('post');
 Route::get('/post/detail/{post:slug}', [PostController::class, 'show'])->name('post.show');
 
 //login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.store');
+
 //register
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 //add comment
 Route::post('/post/detail/{slug}/comment', [CommentController::class, 'store'])->middleware('auth');
+
+Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
+    Route::middleware('role:admin')->group(function () {
+        Route::prefix('admin')->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+            // // Booking
+            // Route::get('/booking', [BookingController::class, 'index'])->name('admin.bookingIndex');
+
+            // // Transaction
+            // Route::get('/transaction', [BookingController::class, 'transactionIndex'])->name('admin.transactionIndex');
+            // Route::get('/transaction/load-transactions', [BookingController::class, 'loadTransactions'])->name('admin.loadTransactions');
+            // Route::get('/transaction/export-pdf', [BookingController::class, 'transactionExportPDF'])->name('admin.transactionExportPDF');
+
+            // // User
+            // Route::get('/user', [UserController::class, 'index'])->name('admin.userIndex');
+            // Route::get('/user/create', [UserController::class, 'create'])->name('admin.userCreate');
+            // Route::post('/user/store', [UserController::class, 'store'])->name('admin.userStore');
+            // Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('admin.userEdit');
+            // Route::put('/user/update/{id}', [UserController::class, 'update'])->name('admin.userUpdate');
+            // Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('admin.userDelete');
+
+            // // Post
+            // Route::get('/post', [PostController::class, 'index'])->name('admin.postIndex');
+            // Route::get('/post/create', [PostController::class, 'create'])->name('admin.postCreate');
+            // Route::get('/post/detail/{id}', [PostController::class, 'show'])->name('admin.postDetail');
+            // Route::get('/post/edit/{id}', [PostController::class, 'edit'])->name('admin.postEdit');
+            // Route::post('/post/store', [PostController::class, 'store'])->name('admin.postStore');
+            // Route::put('/post/update/{id}', [PostController::class, 'update'])->name('admin.postUpdate');
+            // Route::delete('/post/delete/{id}', [PostController::class, 'destroy'])->name('admin.postDelete');
+
+            // // Profile
+            // Route::get('/profile', [AuthController::class, 'profile'])->name('admin.profile');
+            // Route::get('/profile/edit/{id}', [AuthController::class, 'editProfile'])->name('admin.editProfile');
+            // Route::put('/profile/update/{id}', [AuthController::class, 'updateProfile'])->name('admin.updateProfile');
+
+            // Index Data
+            // Route::get('/index-data', [IndexController::class, 'indexData'])->name('admin.indexData');
+            // Route::put('/index-data/update/{id}', [IndexController::class, 'updateIndexData'])->name('admin.updateIndexData');
+        });
+    });
+    Route::middleware('role:user')->group(function () {
+        Route::prefix('user')->group(function () {
+            Route::get('/home', [HomeController::class, 'index'])->name('user.index');
+            Route::get('/order', [OrderController::class, 'index'])->name('order');
+            Route::post('/order', [OrderController::class, 'create'])->name('order.create');
+            
+    //         // Transaction History
+    //         Route::get('/transaction/history', [TransactionController::class, 'transactionHistory'])->name('user.transactionHistory');
+    //         Route::get('/transaction/history/{id}', [TransactionController::class, 'transactionHistoryShow'])->name('user.transactionHistoryDetail');
+
+    //         // Profile
+    //         Route::get('/profile', [AuthController::class, 'profile'])->name('user.profile');
+    //         Route::get('/profile/edit/{id}', [AuthController::class, 'editProfile'])->name('user.editProfile');
+    //         Route::put('/profile/update/{id}', [AuthController::class, 'updateProfile'])->name('user.updateProfile');
+        });
+    });
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+});

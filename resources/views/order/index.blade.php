@@ -20,7 +20,7 @@
                 @csrf
                 <div class="mb-3">
                   <label for="name" class="form-label">Nama</label>
-                  <input type="text" placeholder="Masukkan Nama" class="form-control form-control-custom @error('name') is-invalid @enderror" id="name" name=name required autofocus value="{{ old('name') }}"> 
+                  <input type="text" placeholder="Masukkan Nama" class="form-control form-control-custom @error('name') is-invalid @enderror" id="name" name="name" required autofocus value="{{ old('name') }}"> 
                   @error('name')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -29,7 +29,16 @@
                 </div>
                 <div class="mb-3">
                   <label for="address" class="form-label">Alamat</label>
-                  <input type="text" placeholder="Masukkan Alamat Anda" class="form-control form-control-custom @error('address') is-invalid @enderror" id="address" name=address required value="{{ old('address') }}">
+                  <input type="text" placeholder="Masukkan Alamat Anda" class="form-control form-control-custom @error('address') is-invalid @enderror" id="address" name="address" required value="{{ old('address') }}">
+                  @error('address')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
+                </div>
+                <div class="mb-3">
+                  <label for="date" class="form-label">Tanggal Reservasi</label>
+                  <input type="date" class="form-control form-control-custom @error('address') is-invalid @enderror" id="date" name="date" required value="{{ old('address') }}">
                   @error('address')
                       <div class="invalid-feedback">
                         {{ $message }}
