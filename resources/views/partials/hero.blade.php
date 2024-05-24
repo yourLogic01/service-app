@@ -28,7 +28,7 @@
                     <div class="intro-excerpt">
                         <h1>Punya Barang Rusak?</h1>
                         <p class="mb-4">Jangan hawatir, disini anda bisa menghubungi jasa kami untuk memperbaiki barang alat elektronik anda yang rusak dan tidak terpakai.</p>
-                        <p><a href="/order" class="btn btn-secondary me-2">Order Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
+                        <p><a href="{{ route('order') }}" class="btn btn-secondary me-2">Order Now</a><a href="#explore" class="btn btn-white-outline">Explore</a></p>
                     </div>
                 </div>
                 {{-- <div class="col-md-7">
@@ -42,12 +42,12 @@
     <!-- End Hero Section -->
 @else
     <!-- Start Hero Section for Shop -->
-    <div class="hero">
+    <div class="hero" style="display: none">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
-                        <h1>Shop</h1>
+                        <h2>hero title</h2>
                     </div>
                 </div>
                 <div class="col-lg-7">

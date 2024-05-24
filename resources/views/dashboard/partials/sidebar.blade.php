@@ -30,8 +30,8 @@
         <!-- Nav Item - Lapangan Collapse Menu -->
         
 
-        <li class="nav-item ">
-            <a class="nav-link" href="">
+        <li class="nav-item {{ request()->routeIs('admin.itemIndex') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.itemIndex') }}">
                 <i class="fas fa-fw fa-book"></i>
                 <span>Data Barang / item</span>
             </a>
@@ -53,8 +53,8 @@
         <div class="sidebar-heading">
             Menu Tambahan
         </div>
-        <li class="nav-item ">
-            <a class="nav-link" href="">
+        <li class="nav-item {{ request()->routeIs('admin.userIndex') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.userIndex') }}">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Data User</span>
             </a>

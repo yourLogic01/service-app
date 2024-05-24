@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('teknisi_id')->nullable();
             $table->string('alamat');
+            $table->date('date');
             $table->enum('condition', ['Rusak','Mati','Salah satu fungsi tidak bekerja']);
             $table->foreignId('item_id');
             $table->text('description');

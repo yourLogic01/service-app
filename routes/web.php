@@ -3,11 +3,13 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +49,15 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
         Route::prefix('admin')->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
+
+            // barang /item
+            Route::get('/item', [ItemController::class, 'index'])->name('admin.itemIndex');
+            Route::get('/item/create', [ItemController::class, 'create'])->name('admin.itemCreate');
+            Route::post('/item/store', [ItemController::class, 'store'])->name('admin.itemStore');
+            Route::get('/item/edit/{id}', [ItemController::class, 'edit'])->name('admin.itemEdit');
+            Route::put('/item/update/{id}', [ItemController::class, 'update'])->name('admin.itemUpdate');
+            Route::delete('/item/delete/{id}', [ItemController::class, 'destroy'])->name('admin.itemDelete');
+
             // // Booking
             // Route::get('/booking', [BookingController::class, 'index'])->name('admin.bookingIndex');
 
@@ -56,12 +67,12 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             // Route::get('/transaction/export-pdf', [BookingController::class, 'transactionExportPDF'])->name('admin.transactionExportPDF');
 
             // // User
-            // Route::get('/user', [UserController::class, 'index'])->name('admin.userIndex');
-            // Route::get('/user/create', [UserController::class, 'create'])->name('admin.userCreate');
-            // Route::post('/user/store', [UserController::class, 'store'])->name('admin.userStore');
-            // Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('admin.userEdit');
-            // Route::put('/user/update/{id}', [UserController::class, 'update'])->name('admin.userUpdate');
-            // Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('admin.userDelete');
+            Route::get('/user', [UserController::class, 'index'])->name('admin.userIndex');
+            Route::get('/user/create', [UserController::class, 'create'])->name('admin.userCreate');
+            Route::post('/user/store', [UserController::class, 'store'])->name('admin.userStore');
+            Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('admin.userEdit');
+            Route::put('/user/update/{id}', [UserController::class, 'update'])->name('admin.userUpdate');
+            Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('admin.userDelete');
 
             // // Post
             // Route::get('/post', [PostController::class, 'index'])->name('admin.postIndex');

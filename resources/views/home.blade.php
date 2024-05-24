@@ -53,7 +53,7 @@
     </div>
   </section> --}}
    <!-- Services Section -->
- <div class="we-help-section">
+ <div id="explore" class="we-help-section">
   <div class="container">
     <div class="row justify-content-between">
       <div class="col-lg-7 mb-3 mb-lg-0">
@@ -81,7 +81,7 @@
           <li>Kipas Angin</li>
           <li>Dan Lain Lain</li>
         </ul>
-        <p class="fs-5">Butuh bantuan dan tertarik menggunakan jasa kami? </p><a href="/order" class="btn btn-dark">Order Now</a>
+        <p class="fs-5">Butuh bantuan dan tertarik menggunakan jasa kami? </p><a href="{{ route('order') }}" class="btn btn-dark">Order Now</a>
       </div>
     </div>
   </div>
