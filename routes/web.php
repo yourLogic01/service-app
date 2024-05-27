@@ -3,11 +3,13 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndexDataController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -84,13 +86,13 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             // Route::delete('/post/delete/{id}', [PostController::class, 'destroy'])->name('admin.postDelete');
 
             // // Profile
-            // Route::get('/profile', [AuthController::class, 'profile'])->name('admin.profile');
-            // Route::get('/profile/edit/{id}', [AuthController::class, 'editProfile'])->name('admin.editProfile');
-            // Route::put('/profile/update/{id}', [AuthController::class, 'updateProfile'])->name('admin.updateProfile');
+            Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
+            Route::get('/profile/edit/{id}', [ProfileController::class, 'editProfile'])->name('admin.editProfile');
+            Route::put('/profile/update/{id}', [ProfileController::class, 'updateProfile'])->name('admin.updateProfile');
 
             // Index Data
-            // Route::get('/index-data', [IndexController::class, 'indexData'])->name('admin.indexData');
-            // Route::put('/index-data/update/{id}', [IndexController::class, 'updateIndexData'])->name('admin.updateIndexData');
+            Route::get('/index-data', [IndexDataController::class, 'index'])->name('admin.indexData');
+            Route::put('/index-data/update/{id}', [IndexDataController::class, 'updateIndexData'])->name('admin.updateIndexData');
         });
     });
     Route::middleware('role:user')->group(function () {
@@ -104,9 +106,9 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
     //         Route::get('/transaction/history/{id}', [TransactionController::class, 'transactionHistoryShow'])->name('user.transactionHistoryDetail');
 
     //         // Profile
-    //         Route::get('/profile', [AuthController::class, 'profile'])->name('user.profile');
-    //         Route::get('/profile/edit/{id}', [AuthController::class, 'editProfile'])->name('user.editProfile');
-    //         Route::put('/profile/update/{id}', [AuthController::class, 'updateProfile'])->name('user.updateProfile');
+            Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
+            Route::get('/profile/edit/{id}', [ProfileController::class, 'editProfile'])->name('user.editProfile');
+            Route::put('/profile/update/{id}', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');
         });
     });
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IndexData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -10,7 +11,9 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        return view('auth.login',[
+            'data' => IndexData::first(),
+        ]);
     }
 
     public function login(Request $request)

@@ -45,7 +45,7 @@
             </a>
             <!-- Dropdown - User Information -->
             <ul class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="">
+                <li><a class="dropdown-item" href="{{ route('admin.profile') }}">
                         <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
                         Profile
                     </a></li>

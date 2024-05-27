@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Asyifa Maulana',
-            'username' => 'asyifamaulana',
+            'username' => 'maulana',
             'email' => 'asyifamaulana@gmail.com',
             'password' => bcrypt('123'),
             'role_id' => 1,
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         ]);
         User::create([
             'name' => 'anes',
-            'username' => 'anesbaswedan',
+            'username' => 'anes',
             'email' => 'anesbaswedan@gmail.com',
             'password' => bcrypt('123'),
             'role_id' => 2,

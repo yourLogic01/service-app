@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PostSeeder::class,
             ItemSeeder::class,
+            IndexDataSeeder::class,
         ]);
     }
 }

@@ -36,7 +36,7 @@
               <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
             </li>
             <li>
-              <a href="https://maps.app.goo.gl/oLtHCmSZhMEhhNM37" target="_blank"><span class="fa fa-map" ></span></a>
+              <a href="{{ $data->gmaps_url }}" target="_blank"><span class="fa fa-map" ></span></a>
             </li>
           </ul>
         </div>

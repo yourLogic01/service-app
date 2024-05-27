@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Comment;
+use App\Models\IndexData;
 use App\Models\User;
 
 class PostController extends Controller
@@ -17,7 +18,8 @@ class PostController extends Controller
     {
         return view('blog.index', [
             "posts" => Post::latest()->filter(request(['search']))->paginate(9)->withQueryString(),
-            "currentPage" => "post"
+            "currentPage" => "post",
+            'data' => IndexData::first(),
         ]);
     }
 

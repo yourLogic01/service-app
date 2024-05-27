@@ -25,7 +25,7 @@
                             <!-- Dropdown - User Information -->
                             <ul  class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
                                 aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item link-color" href="">
+                                <li><a class="dropdown-item link-color" href="{{ route('user.profile') }}">
                                         <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
                                         Profile
                                     </a></li>
