@@ -9,21 +9,34 @@
           <a href="{{ route('post') }}" class="more">View All Posts</a>
         </div>
       </div>
-  
-      <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-          <div class="post-entry">
-            <a href="#" class="post-thumbnail"><img src="images/post-1.jpg" alt="Image" class="img-fluid" /></a>
-            <div class="post-content-entry">
-              <h3><a href="#">First Time Home Owner Ideas</a></h3>
-              <div class="meta">
-                <span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19, 2021</a></span>
+
+      @if ($posts->isEmpty())
+                <div class="row text-center">
+                    <div class="col-lg-12">
+                        <div class="text-container">
+                            <h4 class="h4-heading">No post yet <i class="bi bi-emoji-frown"></i></h4>
+                        </div> <!-- end of text-container -->
+                    </div> <!-- end of col -->
+                </div> <!-- end of row -->
+      @else
+        <div class="row">
+        @foreach ($posts as $post)
+        
+          <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+            <div class="post-entry">
+              <a href="{{ route('post.show', $post->slug) }}" class="post-thumbnail"><img src="{{ asset('storage/' . $post->thumbnail) }}" style="height: 300px; width: 100%" alt="Image" class="img-fluid" /></a>
+              <div class="post-content-entry">
+                <h3><a href="{{ route('post.show', $post->slug) }}">{{ $post->title }}</a></h3>
+                <div class="meta">
+                  <span>by {{ $post->author->name }}</span> <span>on {{ $post->created_at->diffForHumans() }}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        @endforeach
+      
   
-        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+        {{-- <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
           <div class="post-entry">
             <a href="#" class="post-thumbnail"><img src="images/post-2.jpg" alt="Image" class="img-fluid" /></a>
             <div class="post-content-entry">
@@ -45,8 +58,9 @@
               </div>
             </div>
           </div>
+        </div> --}}
         </div>
-      </div>
+      @endif
     </div>
   </div>
   <!-- End Blog Section -->

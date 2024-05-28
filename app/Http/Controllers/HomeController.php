@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\IndexData;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,6 +12,7 @@ class HomeController extends Controller
         return view('home', [
             "currentPage" => "home",
             'data' => IndexData::first(),
+            'posts' => Post::latest()->take(3)->get(),
         ]);
     }
 }
