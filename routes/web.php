@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexDataController;
 use App\Http\Controllers\ItemController;
@@ -77,13 +78,14 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('admin.userDelete');
 
             // // Post
-            // Route::get('/post', [PostController::class, 'index'])->name('admin.postIndex');
-            // Route::get('/post/create', [PostController::class, 'create'])->name('admin.postCreate');
-            // Route::get('/post/detail/{id}', [PostController::class, 'show'])->name('admin.postDetail');
-            // Route::get('/post/edit/{id}', [PostController::class, 'edit'])->name('admin.postEdit');
-            // Route::post('/post/store', [PostController::class, 'store'])->name('admin.postStore');
-            // Route::put('/post/update/{id}', [PostController::class, 'update'])->name('admin.postUpdate');
-            // Route::delete('/post/delete/{id}', [PostController::class, 'destroy'])->name('admin.postDelete');
+            Route::get('/post', [DashboardPostController::class, 'index'])->name('admin.postIndex');
+            Route::get('/post/create', [DashboardPostController::class, 'create'])->name('admin.postCreate');
+            Route::get('/post/detail/{id}', [DashboardPostController::class, 'show'])->name('admin.postDetail');
+            Route::get('/post/edit/{id}', [DashboardPostController::class, 'edit'])->name('admin.postEdit');
+            Route::get('/post/checkSlug', [DashboardPostController::class, 'checkSlug']);
+            Route::post('/post/store', [DashboardPostController::class, 'store'])->name('admin.postStore');
+            Route::put('/post/update/{id}', [DashboardPostController::class, 'update'])->name('admin.postUpdate');
+            Route::delete('/post/delete/{id}', [DashboardPostController::class, 'destroy'])->name('admin.postDelete');
 
             // // Profile
             Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');

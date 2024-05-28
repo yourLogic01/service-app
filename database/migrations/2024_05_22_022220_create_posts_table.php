@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('excerpt');
             $table->longText('body');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('thumbnail')->nullable();
+            $table->foreignId('user_id');
+            $table->string('thumbnail');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -46,7 +46,8 @@ class PostController extends Controller
     {
         return view('blog.detail', [
             "post" => $post,
-            "comments" => $comment->where('post_id', $post->id)->latest()->get(),
+            'data' => IndexData::first(),
+            "comments" => $comment->where('post_id', $post->id)->orderBy('created_at', 'asc')->get(),
         ]);
     }
 

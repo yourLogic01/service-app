@@ -9,6 +9,9 @@
                 <h2 class="mb-3">{{ $post->title }}</h2>
         
                 <p>By. {{ $post->author->name }} on {{ $post->created_at->diffForHumans() }}  </p>
+                <div style="max-height: 400px; overflow:hidden;">
+                    <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="{{ $post->title }}" class="img-fluid">
+                </div>
 
                 <article class="my-3 fs-5">
                     {!! $post->body !!}
@@ -43,6 +46,7 @@
                                 <div class="card-body">
                                 <h6 class="card-title">{{ $comment->author->name }}</h6>
                                 <p class="card-text">{{ $comment->body }}</p>
+                                <small class="text-body-secondary">{{ $comment->created_at->diffForHumans() }} </small>
                                 </div>
                             </div>
                         @empty

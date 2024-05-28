@@ -59,13 +59,13 @@
                 <span>Data User</span>
             </a>
         </li>
-        <li class="nav-item ">
-            <a class="nav-link" href="">
+        <li class="nav-item {{ request()->routeIs('admin.postIndex') ? 'active' : '' }} || {{ request()->routeIs('admin.postDetail') ? 'active' : '' }} || {{ request()->routeIs('admin.postEdit') ? 'active' : '' }} || {{ request()->routeIs('admin.postCreate') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.postIndex') }}">
                 <i class="fas fa-fw fa-upload"></i>
                 <span>Postingan</span>
             </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item {{ request()->routeIs('admin.indexData') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.indexData') }}">
                 <i class="fas fa-fw fa-info-circle"></i>
                 <span>Pengaturan Data</span>

@@ -17,6 +17,9 @@
         <div class="card mb-3">
             
             <div class="card-body text-center">
+            <div style="max-height: 250px; overflow:hidden;">
+                    <img src="{{ asset('storage/' . $posts[0]->thumbnail) }}" alt="{{ $posts[0]->title }}" class="img-fluid">
+            </div>
             <h3 class="card-title"><a class="text-decoration-none text-dark" href="/post/detail/{{ $posts[0]->slug }}">{{ $posts[0]->title }}</a></h3>
             <p>
                 <small class="text-body-secondary">
@@ -36,6 +39,7 @@
                 <div class="col-md-6 mb-3">
                     <div class="card">
                         <div class="card-body">
+                        <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="{{ $post->title }}" class="img-fluid" style="max-height: 350px">
                         <h5 class="card-title"><a class="text-decoration-none text-dark" href="/post/detail/{{ $post->slug }}">{{ $post->title }}</a></h5>
                         <p>
                             <small class="text-body-secondary">
@@ -52,7 +56,7 @@
     </div>
 
     @else
-        <p class="text-center fs-4">No Post found.</p>
+        <p class="text-center fs-4 py-5">No Post found.</p>
     @endif
 
     <div class="d-flex justify-content-end">
