@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IndexData;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,11 +14,12 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $profile = Auth::user();
+        $data = IndexData::first();
 
         if ($user->role_id == 1) {
             return view('dashboard.profile.index', compact('profile'));
         } else if ($user->role_id == 2) {
-            return view('profile.index',['currentPage' => 'profile'], compact('profile'));
+            return view('profile.index',['currentPage' => 'profile'], compact('profile','data'));
         } else {
             return abort(403);
         }
@@ -26,6 +28,7 @@ class ProfileController extends Controller
     public function editProfile($id)
     {
         $user = auth()->user();
+        $data = IndexData::first();
         $profile = User::find($id);
         if (Auth::user()->id != $id) {
             return abort(403);
@@ -34,7 +37,7 @@ class ProfileController extends Controller
         if ($user->role_id == 1) {
             return view('dashboard.profile.edit', compact('profile'));
         } else if ($user->role_id == 2) {
-            return view('profile.edit', compact('profile'));
+            return view('profile.edit', compact('profile','data'));
         } else {
             return abort(403);
         }
