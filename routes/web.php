@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexDataController;
 use App\Http\Controllers\ItemController;
@@ -43,6 +44,12 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.store');
 //register
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+//forgot password
+Route::get('/forgot-password', [ForgotPasswordController::class, 'forgot_password'])->name('forgot-password');
+Route::get('/new-password/{token}', [ForgotPasswordController::class, 'new_password'])->name('new-password');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgot_password_action'])->name('forgot-password.action');
+Route::post('/new-password', [ForgotPasswordController::class, 'new_password_action'])->name('newPassword.auth');
 
 //add comment
 Route::post('/post/detail/{slug}/comment', [CommentController::class, 'store'])->middleware('auth');
