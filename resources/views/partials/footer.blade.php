@@ -30,13 +30,16 @@
 
           <ul class="list-unstyled custom-social">
             <li>
-              <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
+              <a href="{{ $data->facebook_url }}" target="_blank"><span class="fa fa-brands fa-facebook-f"></span></a>
             </li>
             <li>
-              <a href="#"><span class="fa fa-brands fa-instagram"></span></a>
+              <a href="{{ $data->instagram_url }}" target="_blank"><span class="fa fa-brands fa-instagram"></span></a>
             </li>
             <li>
               <a href="{{ $data->gmaps_url }}" target="_blank"><span class="fa fa-map" ></span></a>
+            </li>
+            <li>
+              <a href="{{ $data->whatsapp_url }}" target="_blank"><span class="fa fa-brands fa-whatsapp" ></span></a>
             </li>
           </ul>
         </div>

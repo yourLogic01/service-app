@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email');
             $table->string('address');
             $table->string('gmaps_url')->nullable();
+            $table->string('instagram_url')->nullable();
+            $table->string('facebook_url')->nullable();
+            $table->string('whatsapp_url')->nullable();
         });
     }
 
