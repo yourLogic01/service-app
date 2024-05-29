@@ -23,7 +23,7 @@
             <h3 class="card-title"><a class="text-decoration-none text-dark" href="/post/detail/{{ $posts[0]->slug }}">{{ $posts[0]->title }}</a></h3>
             <p>
                 <small class="text-body-secondary">
-                    By. {{ $posts[0]->author->name }} {{ $posts[0]->created_at->diffForHumans() }}
+                    By. {{ $posts[0]->author->name }} on {{ $posts[0]->created_at->diffForHumans() }}
                 </small>
             </p>
             <p class="card-text">{{ $posts[0]->excerpt }}</p>
@@ -43,7 +43,7 @@
                         <h5 class="card-title"><a class="text-decoration-none text-dark" href="/post/detail/{{ $post->slug }}">{{ $post->title }}</a></h5>
                         <p>
                             <small class="text-body-secondary">
-                                By. {{ $post->author->name }} {{ $post->created_at->diffForHumans() }} 
+                                By. {{ $post->author->name }} on {{ $post->created_at->diffForHumans() }} 
                             </small>
                         </p>
                         <p class="card-text">{{ $post->excerpt }}</p>
