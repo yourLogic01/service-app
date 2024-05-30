@@ -55,7 +55,7 @@ Route::post('/new-password', [ForgotPasswordController::class, 'new_password_act
 Route::post('/post/detail/{slug}/comment', [CommentController::class, 'store'])->middleware('auth');
 
 Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('role:admin|teknisi')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 

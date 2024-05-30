@@ -16,7 +16,7 @@ class ProfileController extends Controller
         $profile = Auth::user();
         $data = IndexData::first();
 
-        if ($user->role_id == 1) {
+        if ($user->role_id == 1 || $user->role_id == 3) {
             return view('dashboard.profile.index', compact('profile'));
         } else if ($user->role_id == 2) {
             return view('profile.index',['currentPage' => 'profile'], compact('profile','data'));
@@ -34,7 +34,7 @@ class ProfileController extends Controller
             return abort(403);
         }
 
-        if ($user->role_id == 1) {
+        if ($user->role_id == 1 || $user->role_id == 3) {
             return view('dashboard.profile.edit', compact('profile'));
         } else if ($user->role_id == 2) {
             return view('profile.edit', compact('profile','data'));
@@ -92,7 +92,7 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        if ($user->role_id == 1) {
+        if ($user->role_id == 1 || $user->role_id == 3) {
             return redirect()->route('admin.profile')->with('success', 'Profile berhasil diperbarui');
         } elseif ($user->role_id == 2) {
             return redirect()->route('user.profile')->with('success', 'Profile berhasil diperbarui');
