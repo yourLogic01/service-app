@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->foreignId('user_id');
             $table->foreignId('teknisi_id')->nullable();
-            $table->string('alamat');
+            $table->string('address');
             $table->date('date');
-            $table->enum('condition', ['Rusak','Mati','Salah satu fungsi tidak bekerja']);
             $table->foreignId('item_id');
             $table->text('description');
+            $table->string('item_picture');
             $table->integer('status');
+            $table->string('message')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->timestamps();
         });
