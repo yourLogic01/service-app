@@ -8,7 +8,7 @@
         <div class="sidebar-brand-text mx-3">Service-app</div>
     </a>
 
-    @if (Auth::user()->role->name = 'admin')
+    @if (Auth::user()->role->name == 'teknisi' || Auth::user()->role->name == 'admin')
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
@@ -30,12 +30,6 @@
         <!-- Nav Item - Lapangan Collapse Menu -->
         
 
-        <li class="nav-item {{ request()->routeIs('admin.itemIndex') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.itemIndex') }}">
-                <i class="fas fa-fw fa-book"></i>
-                <span>Data Barang / item</span>
-            </a>
-        </li>
         <li class="nav-item ">
             <a class="nav-link" href="">
                 <i class="fas fa-fw fa-book"></i>
@@ -48,6 +42,17 @@
                 <span>Data Transaksi</span>
             </a>
         </li>
+
+        @can('admin')
+            
+        
+        <li class="nav-item {{ request()->routeIs('admin.itemIndex') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.itemIndex') }}">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Data Barang / item</span>
+            </a>
+        </li>
+        
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
         <div class="sidebar-heading">
@@ -71,6 +76,7 @@
                 <span>Pengaturan Data</span>
             </a>
         </li>
+        @endcan
     @endif
 
     <!-- Sidebar Toggler (Sidebar) -->

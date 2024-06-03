@@ -23,6 +23,6 @@ class Role
             }
         }
 
-        return abort(403, 'Unauthorized action');
+         return abort(403, 'Unauthorized action');
     }
 }

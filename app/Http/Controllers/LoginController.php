@@ -27,7 +27,7 @@ class LoginController extends Controller
             Auth::attempt(['email' => $credentials['login'], 'password' => $credentials['password']]) ||
             Auth::attempt(['username' => $credentials['login'], 'password' => $credentials['password']])
         ) {
-            if (Auth::user()->role->name == 'admin') {
+            if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'teknisi') {
                 return redirect()->route('admin.dashboard');
             } else if (Auth::user()->role->name == 'user') {
                 return redirect()->route('home');
