@@ -29,5 +29,13 @@ class UserSeeder extends Seeder
             'role_id' => 2,
             'phone' => '081235622333',
         ]);
+        User::create([
+            'name' => 'ali',
+            'username' => 'ali',
+            'email' => 'ali@gmail.com',
+            'password' => bcrypt('123'),
+            'role_id' => 3,
+            'phone' => '081235622333',
+        ]);
     }
 }

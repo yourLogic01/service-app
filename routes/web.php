@@ -10,6 +10,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
@@ -108,11 +109,11 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
         Route::prefix('user')->group(function () {
             Route::get('/home', [HomeController::class, 'index'])->name('user.index');
             Route::get('/order', [OrderController::class, 'index'])->name('order');
-            Route::post('/order', [OrderController::class, 'create'])->name('order.create');
+            Route::post('/order', [OrderController::class, 'store'])->name('order.store');
             
-    //         // Transaction History
-    //         Route::get('/transaction/history', [TransactionController::class, 'transactionHistory'])->name('user.transactionHistory');
-    //         Route::get('/transaction/history/{id}', [TransactionController::class, 'transactionHistoryShow'])->name('user.transactionHistoryDetail');
+    //         // Order History
+            Route::get('/order/history', [OrderHistoryController::class, 'index'])->name('user.OrderHistory');
+            Route::get('/order/history/{id}', [OrderHistoryController::class, 'show'])->name('user.OrderHistoryDetail');
 
     //         // Profile
             Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');

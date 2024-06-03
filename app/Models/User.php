@@ -52,4 +52,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(Order::class, 'user_id');
+    }
+    public function technicians()
+    {
+        return $this->hasMany(Order::class, 'teknisi_id');
+    }
 }
