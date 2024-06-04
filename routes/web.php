@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardOrderController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
@@ -69,8 +70,13 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             Route::put('/item/update/{id}', [ItemController::class, 'update'])->name('admin.itemUpdate');
             Route::delete('/item/delete/{id}', [ItemController::class, 'destroy'])->name('admin.itemDelete');
 
-            // // Booking
-            // Route::get('/booking', [BookingController::class, 'index'])->name('admin.bookingIndex');
+            // // Order
+            Route::get('/order', [DashboardOrderController::class, 'index'])->name('admin.orderIndex');
+            Route::get('/order/create', [DashboardOrderController::class, 'create'])->name('admin.orderCreate');
+            Route::post('/order/store', [DashboardOrderController::class, 'store'])->name('admin.orderStore');
+            Route::put('/order/canceled/{id}', [DashboardOrderController::class, 'canceledOrder'])->name('admin.canceledOrder');
+            Route::put('/order/confirmed/{id}', [DashboardOrderController::class, 'confirmOrder'])->name('admin.confirmOrder');
+
 
             // // Transaction
             // Route::get('/transaction', [BookingController::class, 'transactionIndex'])->name('admin.transactionIndex');

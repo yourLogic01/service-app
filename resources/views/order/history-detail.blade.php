@@ -24,7 +24,7 @@
                         <div class="hr">
                             <hr style="border-top: solid #000;">
                         </div>
-                        <div class="form-group col-md-6 flex-column d-flex ps-5 pt-5">
+                        <div class="form-group col-md-12 flex-column d-flex ps-5 pt-5">
                             <table class="table-responsive">
                                 <tr>
                                     <td>
@@ -46,6 +46,17 @@
                                     </td>
                                     <td>
                                         <h6>{{ $order->date }}</h6>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6>Alamat</h6>
+                                    </td>
+                                    <td>
+                                        <h6>:</h6>
+                                    </td>
+                                    <td>
+                                        <h6>{{ $order->address }}</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -78,14 +89,31 @@
                                         <h6>:</h6>
                                     </td>
                                     <td>
-                                        @if ($order->price == null)
-                                            <h6>Rp. ?</h6>
+                                        @if ($order->status == 0)
+                                            <span>order canceled</span>
+                                        @elseif ($order->price == null)
+                                            <span>Rp. ?</span>
                                         @else
                                             <h6>Rp. {{ number_format($order->price, 0, ',', '.') }}</h6>
                                         @endif
                                     </td>
                                 </tr>
+                                @if ($order->message)
+                                    <tr>
+                                        <td>
+                                            <h6>Keterangan</h6>
+                                        </td>
+                                        <td>
+                                            <h6>:</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $order->message }}</h6>
+                                        </td>
+                                    </tr>
+                                @endif
                             </table>
+                            <h6>gambar Barang :</h6>
+                            <img src="{{ asset('storage/' . $order->item_picture) }}" alt="order image" width="300px">
                         </div>
                         <div class="hr">
                             <hr style="border-top: solid #000;">

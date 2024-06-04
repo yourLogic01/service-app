@@ -41,6 +41,7 @@ class OrderController extends Controller
          Order::create([
             'user_id' => auth()->user()->id,
             'item_id' => $request->item_id,
+            'name' => auth()->user()->name,
             'date' => $request->date,
             'address' => $request->address,
             'description' => $request->description,
