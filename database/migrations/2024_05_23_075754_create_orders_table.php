@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->foreignId('user_id');
             $table->foreignId('teknisi_id')->nullable();
+            $table->string('name');
             $table->string('address');
             $table->date('date');
             $table->foreignId('item_id');

@@ -46,7 +46,9 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if ($order->price == null)
+                                    @if ($order->status == 0)
+                                        <span>order canceled</span>
+                                    @elseif ($order->price == null)
                                         <span>Rp. ?</span>
                                     @else
                                         Rp.

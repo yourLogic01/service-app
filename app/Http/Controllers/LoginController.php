@@ -31,7 +31,7 @@ class LoginController extends Controller
                 return redirect()->route('admin.dashboard');
             } else if (Auth::user()->role->name == 'teknisi')
             {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.orderIndex');
             } 
             else if (Auth::user()->role->name == 'user') {
                 return redirect()->route('home');
