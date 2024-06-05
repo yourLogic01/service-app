@@ -16,8 +16,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pendapatan (Bulanan)
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">Rp.
-                                0</div> 
-                                {{-- totalcurrentmonth --}}
+                                {{ number_format($totalCurrentMonth, 0, ',', '.') }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -36,8 +35,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pendapatan (Tahunan)
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">Rp.
-                                0</div>
-                                {{-- totalcurrentyear --}}
+                                {{ number_format($totalCurrentYear, 0, ',', '.') }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -108,8 +106,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
-                        <canvas id="myAreaChart" data-earnings=""></canvas>
-                        {{-- <canvas id="myAreaChart" data-earnings="{{ json_encode($earningsPerMonth) }}"></canvas> --}}
+                        <canvas id="myAreaChart" data-earnings="{{ json_encode($earningsPerMonth) }}"></canvas>
                     </div>
                 </div>
             </div>
