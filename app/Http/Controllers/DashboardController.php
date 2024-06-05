@@ -2,69 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // $currentYear = date('Y');
-        // $currentMonth = date('m');
+        $currentYear = date('Y');
+        $currentMonth = date('m');
 
-        // $transactions = Transaction::whereYear('created_at', $currentYear)
-        //     ->whereHas('booking', function ($query) {
-        //         $query->where('booking_status', '>=', 2);
-        //     })
-        //     ->get();
+        $transactionsYear = Order::whereYear('created_at', $currentYear)
+            ->where('status', '>=', 2)->get();
 
-        // $totalCurrentYear = $transactions->sum(function ($transaction) {
-        //     return $transaction->price;
-        // });
+        $totalCurrentYear = $transactionsYear->sum('price');
 
-        // $transactions = Transaction::whereMonth('created_at', $currentMonth)
-        //     ->whereHas('booking', function ($query) {
-        //         $query->where('booking_status', '>=', 2);
-        //     })
-        //     ->get();
+        $transactionsMonth = Order::whereMonth('created_at', $currentMonth)
+            ->where('status', '>=', 2)->get();
 
-        // $totalCurrentMonth = $transactions->sum(function ($transaction) {
-        //     return $transaction->price;
-        // });
+        $totalCurrentMonth = $transactionsMonth->sum('price');
 
-        // $earningsPerMonth = [];
-        // for ($month = 1; $month <= 12; $month++) {
-        //     $transactions = Transaction::whereYear('created_at', $currentYear)
-        //         ->whereMonth('created_at', $month)
-        //         ->whereHas('booking', function ($query) {
-        //             $query->where('booking_status', '>=', 2);
-        //         })
-        //         ->get();
+        $earningsPerMonth = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $transactions = Order::whereYear('created_at', $currentYear)
+                ->whereMonth('created_at', $month)
+                ->where('status', '>=', 2)->get();
 
-        //     $currentMonthSum = $transactions->sum(function ($transaction) {
-        //         return $transaction->price;
-        //     });
+            $currentMonthSum = $transactions->sum('price');
 
-        //     $earningsPerMonth[] = $currentMonthSum;
-        // }
+            $earningsPerMonth[] = $currentMonthSum;
+        }
 
-        // // Mengambil total transaksi yang sukses berdasarkan field_type menggunakan Eloquent
-        // $transactionSuccessByFieldType = Transaction::with(['booking.fieldData'])
-        //     ->whereHas('booking', function ($query) {
-        //         $query->where('booking_status', '>=', 2);
-        //     })
-        //     ->get()
-        //     ->groupBy(function ($transaction) {
-        //         return $transaction->booking->fieldData->field_type;
-        //     })
-        //     ->map(function ($transactions) {
-        //         return $transactions->count();
-        //     });
+        // Mengambil total transaksi yang sukses berdasarkan field_type menggunakan Eloquent
+        $transactionSuccess = Order::where('status', '>=', 2)->get();
 
-        // // Mengubah data yang dihasilkan ke format yang cocok untuk digunakan dalam grafik
-        // $labels = $transactionSuccessByFieldType->keys();
-        // $data = $transactionSuccessByFieldType->values();
+        // Mengubah data yang dihasilkan ke format yang cocok untuk digunakan dalam grafik
+        $labels = $transactionSuccess->pluck('created_at');
+        $data = $transactionSuccess->pluck('price');
 
-        // return view('admin.dashboard', compact('totalCurrentYear', 'totalCurrentMonth', 'earningsPerMonth', 'labels', 'data'));
-        return view('dashboard.index');
+        return view('dashboard.index', compact('totalCurrentYear', 'totalCurrentMonth', 'earningsPerMonth', 'labels', 'data'));
     }
 }

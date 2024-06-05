@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardOrderController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\DashboardTransactionController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexDataController;
@@ -79,9 +80,9 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
 
 
             // // Transaction
-            // Route::get('/transaction', [BookingController::class, 'transactionIndex'])->name('admin.transactionIndex');
-            // Route::get('/transaction/load-transactions', [BookingController::class, 'loadTransactions'])->name('admin.loadTransactions');
-            // Route::get('/transaction/export-pdf', [BookingController::class, 'transactionExportPDF'])->name('admin.transactionExportPDF');
+            Route::get('/transaction', [DashboardTransactionController::class, 'index'])->name('admin.transactionIndex');
+            Route::get('/transaction/load-transactions', [DashboardTransactionController::class, 'loadTransactions'])->name('admin.loadTransactions');
+            Route::get('/transaction/export-pdf', [DashboardTransactionController::class, 'transactionExportPDF'])->name('admin.exportPDF');
 
             // // User
             Route::get('/user', [UserController::class, 'index'])->name('admin.userIndex');

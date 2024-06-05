@@ -40,8 +40,8 @@
 
 
         @can('admin')
-            <li class="nav-item ">
-                <a class="nav-link" href="">
+            <li class="nav-item {{ request()->routeIs('admin.transactionIndex') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.transactionIndex') }}">
                     <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Data Transaksi</span>
                 </a>
