@@ -71,6 +71,15 @@ class DashboardOrderController extends Controller
         return redirect()->route('admin.orderIndex')->with('success', 'Order berhasil dilakukan');
     }
 
+    public function detailOrder($id)
+    {
+        $order = Order::find($id);
+        return view('dashboard.order.confirm-order', [
+            'order' => $order,
+            'items' => Item::all(),
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */

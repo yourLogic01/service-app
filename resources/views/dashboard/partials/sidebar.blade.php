@@ -31,7 +31,8 @@
         <!-- Nav Item - Lapangan Collapse Menu -->
 
 
-        <li class="nav-item {{ request()->routeIs('admin.orderIndex') ? 'active' : '' }}">
+        <li
+            class="nav-item {{ (request()->routeIs('admin.orderIndex') ? 'active' : '' || request()->routeIs('admin.detailOrder')) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.orderIndex') }}">
                 <i class="fas fa-fw fa-book"></i>
                 <span>Data Order</span>
@@ -40,7 +41,8 @@
 
 
         @can('admin')
-            <li class="nav-item {{ request()->routeIs('admin.transactionIndex') ? 'active' : '' }}">
+            <li
+                class="nav-item {{ (request()->routeIs('admin.transactionIndex') ? 'active' : '' || request()->routeIs('admin.detailTransaction')) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.transactionIndex') }}">
                     <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Data Transaksi</span>

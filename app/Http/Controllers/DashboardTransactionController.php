@@ -32,17 +32,40 @@ class DashboardTransactionController extends Controller
         $startDate = Carbon::parse($request->start_date)->startOfDay();
         $endDate = Carbon::parse($request->end_date)->endOfDay();
 
-        // Query transactions within date range
-        $orders = Order::where('status', '>=', 2)
-        ->whereBetween('created_at', [$startDate, $endDate])
-        ->with('item')
-        ->get();
+        $orders = Order::whereBetween('created_at', [$startDate, $endDate])
+            ->with('item') // include related item data
+            ->get();
+
+        foreach ($orders as $order) {
+            $order->actions = '<a href="' . route('admin.detailTransaction', $order->id) . '" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>';
+        }
+
         $totalTransaction = $orders->sum('price');
 
         return response()->json([
             'orders' => $orders,
-            'totalTransaction' => $totalTransaction
+            'totalTransaction' => $totalTransaction,
         ]);
+        // $startDate = Carbon::parse($request->start_date)->startOfDay();
+        // $endDate = Carbon::parse($request->end_date)->endOfDay();
+
+        // // Query transactions within date range
+        // $orders = Order::where('status', '>=', 2)
+        // ->whereBetween('created_at', [$startDate, $endDate])
+        // ->with('item')
+        // ->get();
+        // $totalTransaction = $orders->sum('price');
+
+        // return response()->json([
+        //     'orders' => $orders,
+        //     'totalTransaction' => $totalTransaction
+        // ]);
+    }
+
+    public  function detailTransaction($id)
+    {
+        $order = Order::find($id);
+        return view('dashboard.transaction.show', compact('order'))->with('item');
     }
     // public function index()
     // {
