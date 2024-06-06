@@ -161,7 +161,7 @@
                                         </div>
                                     </div>
                                     @if ($order->status == 1)
-                                        <!-- Button konfirmasi modal -->
+                                        {{-- <!-- Button konfirmasi modal -->
                                         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#konfirmModal{{ $order->id }}">
                                             Konfirmasi Order
@@ -221,7 +221,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
+                                        <a href="{{ route('admin.detailOrder', $order->id) }}"
+                                            class="btn btn-sm btn-primary">Konfirmasi Order</a>
                                         {{-- <form action="" method="POST">
                                             @method('PUT')
                                             @csrf

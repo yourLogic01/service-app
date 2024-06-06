@@ -77,12 +77,14 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             Route::post('/order/store', [DashboardOrderController::class, 'store'])->name('admin.orderStore');
             Route::put('/order/canceled/{id}', [DashboardOrderController::class, 'canceledOrder'])->name('admin.canceledOrder');
             Route::put('/order/confirmed/{id}', [DashboardOrderController::class, 'confirmOrder'])->name('admin.confirmOrder');
+            Route::get('/order/detail/{id}', [DashboardOrderController::class, 'detailOrder'])->name('admin.detailOrder');
 
 
             // // Transaction
             Route::get('/transaction', [DashboardTransactionController::class, 'index'])->name('admin.transactionIndex');
             Route::get('/transaction/load-transactions', [DashboardTransactionController::class, 'loadTransactions'])->name('admin.loadTransactions');
             Route::get('/transaction/export-pdf', [DashboardTransactionController::class, 'transactionExportPDF'])->name('admin.exportPDF');
+            Route::get('/transaction/detail/{id}', [DashboardTransactionController::class, 'detailTransaction'])->name('admin.detailTransaction');
 
             // // User
             Route::get('/user', [UserController::class, 'index'])->name('admin.userIndex');

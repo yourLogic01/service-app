@@ -53,6 +53,7 @@
                         <th class="text-center">Tanggal Transaksi</th>
                         <th class="text-center">Jenis Barang</th>
                         <th class="text-center">Total Pembayaran</th>
+                        <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,6 +66,9 @@
                             <td class="text-center"><span class="badge text-bg-success text-white">Rp
                                     {{ number_format($order->price, 0, ',', '.') }}</span>
                             </td>
+                            <td class="text-center"><a href="{{ route('admin.detailTransaction', $order->id) }}"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail"
+                                    class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -74,6 +78,131 @@
 @endsection
 @section('script')
     <script>
+        // $(function() {
+        //     $('#daterange').daterangepicker({
+        //         opens: 'right',
+        //         ranges: {
+        //             'Today': [moment(), moment()],
+        //             'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        //             'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        //             'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        //             'This Month': [moment().startOf('month'), moment().endOf('month')],
+        //             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+        //                 'month').endOf('month')]
+        //         }
+        //     }, function(start, end, label) {
+        //         loadTransactions(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
+        //     });
+
+        //     $('#exportPDFButton').click(function() {
+        //         // Ambil nilai terbaru dari date range picker
+        //         var startDate = $('#daterange').data('daterangepicker').startDate.format('YYYY-MM-DD');
+        //         var endDate = $('#daterange').data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+        //         // Buat URL dengan nilai start_date dan end_date yang diperbarui
+        //         // var exportPDFUrl = '?start_date=' + startDate +
+        //         //     '&end_date=' + endDate;
+
+        //         // Redirect ke halaman PDF
+        //         window.location.href = exportPDFUrl;
+        //     });
+        //     // Function to load transactions via Ajax
+        //     function loadTransactions(startDate, endDate) {
+        //         $.ajax({
+        //             url: '{{ route('admin.loadTransactions') }}',
+        //             type: 'GET',
+        //             data: {
+        //                 start_date: startDate,
+        //                 end_date: endDate
+        //             },
+        //             success: function(response) {
+        //                 $('#myTable').DataTable().destroy();
+        //                 $('#myTable').DataTable({
+        //                     data: response.orders,
+        //                     columns: [{
+        //                             data: 'id',
+        //                             className: 'text-center'
+        //                         },
+        //                         {
+        //                             data: 'name',
+        //                             className: 'text-center'
+        //                         },
+        //                         {
+        //                             data: 'created_at',
+        //                             className: 'text-center',
+        //                             render: function(data, type, row) {
+        //                                 // Mengubah data tanggal ke dalam objek Date
+        //                                 var date = new Date(data);
+
+        //                                 // Array untuk menyimpan nama hari dalam bahasa Inggris
+        //                                 var days = ['Minggu', 'Senin', 'Selasa', 'Rabu',
+        //                                     'Kamis', 'Jumat', 'Sabtu'
+        //                                 ];
+
+        //                                 // Mendapatkan nama hari berdasarkan tanggal
+        //                                 var dayName = days[date.getDay()];
+
+        //                                 // Mendapatkan tanggal dalam format dd/mm/yyyy
+        //                                 var formattedDate = ('0' + date.getDate())
+        //                                     .slice(-2) + '/' + ('0' + (date.getMonth() +
+        //                                         1)).slice(-2) + '/' + date
+        //                                     .getFullYear();
+
+        //                                 // Mengembalikan tanggal yang diformat
+        //                                 return dayName + ', ' + formattedDate;
+        //                             }
+        //                         },
+        //                         {
+        //                             data: 'item.name',
+        //                             className: 'text-center'
+        //                         },
+        //                         {
+        //                             data: 'price',
+        //                             className: 'text-center',
+        //                             render: function(data, type, row) {
+        //                                 var totalPayment = row.price;
+
+        //                                 // Membuat sebuah elemen span dengan nilai yang diambil dari kolom data
+        //                                 var formattedTotalPayment =
+        //                                     '<span class="badge text-bg-success text-white">Rp. ' +
+        //                                     Number(totalPayment).toLocaleString(
+        //                                         'id-ID', {
+        //                                             minimumFractionDigits: 0
+        //                                         }) + '</span>';
+
+        //                                 // Mengembalikan HTML yang sudah diformat
+        //                                 return formattedTotalPayment;
+        //                             }
+        //                         },
+        //                         {
+        //                             data: 'actions',
+        //                             className: 'text-center',
+        //                             orderable: false
+        //                         },
+        //                     ],
+        //                     responsive: true,
+        //                     scrollX: true,
+        //                     order: [],
+        //                 });
+
+
+
+        //                 $('#totalTransaction').empty();
+        //                 var formattedTotalTransaction = 'Rp ' + Number(response.totalTransaction)
+        //                     .toLocaleString(
+        //                         'id-ID', {
+        //                             minimumFractionDigits: 0
+        //                         });
+        //                 $('#totalTransaction').append(
+        //                     formattedTotalTransaction
+        //                 );
+        //             },
+        //             error: function(xhr) {
+        //                 console.log('Error:', xhr.responseText);
+        //             }
+        //         });
+        //     }
+        // });
         $(function() {
             $('#daterange').daterangepicker({
                 opens: 'right',
@@ -91,18 +220,12 @@
             });
 
             $('#exportPDFButton').click(function() {
-                // Ambil nilai terbaru dari date range picker
                 var startDate = $('#daterange').data('daterangepicker').startDate.format('YYYY-MM-DD');
                 var endDate = $('#daterange').data('daterangepicker').endDate.format('YYYY-MM-DD');
-
-                // Buat URL dengan nilai start_date dan end_date yang diperbarui
-                // var exportPDFUrl = '?start_date=' + startDate +
-                //     '&end_date=' + endDate;
-
-                // Redirect ke halaman PDF
+                var exportPDFUrl = '?start_date=' + startDate + '&end_date=' + endDate;
                 window.location.href = exportPDFUrl;
             });
-            // Function to load transactions via Ajax
+
             function loadTransactions(startDate, endDate) {
                 $.ajax({
                     url: '{{ route('admin.loadTransactions') }}',
@@ -127,24 +250,15 @@
                                     data: 'created_at',
                                     className: 'text-center',
                                     render: function(data, type, row) {
-                                        // Mengubah data tanggal ke dalam objek Date
                                         var date = new Date(data);
-
-                                        // Array untuk menyimpan nama hari dalam bahasa Inggris
                                         var days = ['Minggu', 'Senin', 'Selasa', 'Rabu',
                                             'Kamis', 'Jumat', 'Sabtu'
                                         ];
-
-                                        // Mendapatkan nama hari berdasarkan tanggal
                                         var dayName = days[date.getDay()];
-
-                                        // Mendapatkan tanggal dalam format dd/mm/yyyy
                                         var formattedDate = ('0' + date.getDate())
                                             .slice(-2) + '/' + ('0' + (date.getMonth() +
                                                 1)).slice(-2) + '/' + date
-                                            .getFullYear();
-
-                                        // Mengembalikan tanggal yang diformat
+                                        .getFullYear();
                                         return dayName + ', ' + formattedDate;
                                     }
                                 },
@@ -156,37 +270,29 @@
                                     data: 'price',
                                     className: 'text-center',
                                     render: function(data, type, row) {
-                                        var totalPayment = row.price;
-
-                                        // Membuat sebuah elemen span dengan nilai yang diambil dari kolom data
-                                        var formattedTotalPayment =
-                                            '<span class="badge text-bg-success text-white">Rp. ' +
-                                            Number(totalPayment).toLocaleString(
-                                                'id-ID', {
-                                                    minimumFractionDigits: 0
-                                                }) + '</span>';
-
-                                        // Mengembalikan HTML yang sudah diformat
-                                        return formattedTotalPayment;
+                                        return '<span class="badge text-bg-success text-white">Rp. ' +
+                                            Number(row.price).toLocaleString('id-ID', {
+                                                minimumFractionDigits: 0
+                                            }) + '</span>';
                                     }
                                 },
+                                {
+                                    data: 'actions',
+                                    className: 'text-center',
+                                    orderable: false
+                                }
                             ],
                             responsive: true,
                             scrollX: true,
                             order: [],
                         });
 
-
-
                         $('#totalTransaction').empty();
                         var formattedTotalTransaction = 'Rp ' + Number(response.totalTransaction)
-                            .toLocaleString(
-                                'id-ID', {
-                                    minimumFractionDigits: 0
-                                });
-                        $('#totalTransaction').append(
-                            formattedTotalTransaction
-                        );
+                            .toLocaleString('id-ID', {
+                                minimumFractionDigits: 0
+                            });
+                        $('#totalTransaction').append(formattedTotalTransaction);
                     },
                     error: function(xhr) {
                         console.log('Error:', xhr.responseText);
