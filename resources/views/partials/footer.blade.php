@@ -24,7 +24,7 @@
         <div class="row g-4 mb-3">
             <div class="col-lg-10">
                 <div class="mb-4 footer-logo-wrap">
-                    <a href="#" class="footer-logo">Service-App<span>.</span></a>
+                    <a href="#" class="footer-logo">{{ config('app.name') }}<span>.</span></a>
                 </div>
                 <p class="mb-3">Sebuah usaha yang berjalan dibidang jasa. Khususnya perbaikan alat elektronik rumah
                     tangga yang sudah rusak agar tidak menjadi limbah elektronik yang sia-sia.</p>
@@ -72,15 +72,13 @@
 
         <div class="border-top copyright">
             <div class="row pt-4">
-                <div class="col-lg-6">
-                    <p class="mb-1 text-center text-lg-start">
-                        Copyright &copy;
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        . All Rights Reserved. &mdash; Designed with love by Developer</a>
-                    </p>
-                </div>
+                <p class="mb-1 text-center text-lg-start">
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    . All Rights Reserved. &mdash; Designed with love by <span id="developer">Developer</span>
+                </p>
 
                 {{-- <div class="col-lg-6 text-center text-lg-end">
             <ul class="list-unstyled d-inline-flex ms-auto">
@@ -92,4 +90,12 @@
         </div>
     </div>
 </footer>
+<script>
+    document.getElementById("developer").addEventListener("click", function() {
+        // Mengganti teks dari "Developer" menjadi nama Anda
+        this.innerText = "Asyifa Maulana";
+        // Menambahkan style atau pesan tambahan jika diinginkan
+        alert("This website is designed with love by Asyifa Maulana!");
+    });
+</script>
 <!-- End Footer Section -->
