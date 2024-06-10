@@ -42,6 +42,8 @@
                                     @elseif($order->status == 1)
                                         <span class="badge text-bg-warning text-white">Pending</span>
                                     @elseif($order->status == 2)
+                                        <span class="badge text-bg-secondary text-white">On Progress</span>
+                                    @elseif($order->status == 3)
                                         <span class="badge text-bg-success text-white">Paid</span>
                                     @endif
                                 </td>

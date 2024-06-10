@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmOrder;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class DashboardOrderController extends Controller
 {
@@ -37,13 +41,13 @@ class DashboardOrderController extends Controller
             'address' => 'required',
             'date' => 'required',
             'price' => 'required',
-            'name' => 'required',
+            'customer_name' => 'required',
             'item_id' => 'required',
             'description' => 'required',
             'item_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ],
         [
-        'name.required' => 'Nama harus diisi',
+        'customer_name.required' => 'Nama harus diisi',
         'price.required' => 'Harga harus diisi',
         'address.required' => 'Alamat harus diisi',
         'date.required' => 'Tanggal harus diisi',
@@ -60,7 +64,7 @@ class DashboardOrderController extends Controller
             'item_id' => $request->item_id,
             'teknisi_id' => auth()->user()->id,
             'price' => $request->price,
-            'name' => $request->name,
+            'customer_name' => $request->name,
             'date' => $request->date,
             'address' => $request->address,
             'description' => $request->description,
@@ -113,16 +117,15 @@ class DashboardOrderController extends Controller
     }
     public function confirmOrder(Request $request, $id)
     {
-        $request->validate([
-            'price' => 'required',
-            'message' => 'required'
-        ]);
+        
         $order = Order::find($id);
         $order->update([
-            'price' => $request->price,
             'status' => 2,
-            'message' => $request->message
         ]);
+        $recipient = User::where('id', $order->user_id)
+        ->pluck('email')->first();
+        Mail::to($recipient)->send(new ConfirmOrder);
+
 
         session()->flash('success', 'Data Order berhasil diperbarui');
         // Redirect pengguna ke halaman transaksi
@@ -141,6 +144,32 @@ class DashboardOrderController extends Controller
 
         session()->flash('success', 'Data Order berhasil diperbarui');
         // Redirect pengguna ke halaman transaksi
+        return redirect()->route('admin.orderIndex');
+    }
+    public function completedOrderView($id)
+    {
+        $order = Order::find($id);
+        return view('dashboard.order.complete-order', compact('order'));
+    }
+    public function completedOrder(Request $request, $id)
+    {
+        $request->validate([
+            'message' => 'required',
+            'price' => 'required'
+        ],
+        [
+        'message.required' => 'Pesan harus diisi',
+        'price.required' => 'Harga harus diisi',
+        ]);
+        $order = Order::find($id);
+        $order->update([
+            'message' => $request->message,
+            'status' => 3,
+            'price' => $request->price,
+            'teknisi_id' => Auth::user()->id
+        ]);
+
+        session()->flash('success', 'Data Order berhasil diperbarui');
         return redirect()->route('admin.orderIndex');
     }
 }

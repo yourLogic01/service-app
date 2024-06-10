@@ -53,7 +53,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="align-middle">
-                                            {{ $order->name }} <br>
+                                            {{ $order->customer_name }} <br>
                                         </td>
 
                                         <td class="align-middle">

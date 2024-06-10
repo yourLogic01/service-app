@@ -15,14 +15,14 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->foreignId('user_id');
             $table->foreignId('teknisi_id')->nullable();
-            $table->string('name');
+            $table->string('customer_name');
             $table->string('address');
             $table->date('date');
             $table->foreignId('item_id');
             $table->text('description');
             $table->string('item_picture');
             $table->integer('status');
-            $table->string('message')->nullable();
+            $table->text('message')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->timestamps();
         });

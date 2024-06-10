@@ -21,7 +21,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <h5 class="font-weight-bold">Nama Pemesan:</h5>
-                            <p>{{ $order->name }}</p>
+                            <p>{{ $order->customer_name }}</p>
                         </div>
                         <div class="col-md-6">
                             <h5 class="font-weight-bold">Alamat:</h5>
@@ -54,47 +54,12 @@
                         method="POST">
                         @method('PUT')
                         @csrf
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Keterangan perbaikan :</label>
-                            <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="3">{{ old('message') }}</textarea>
-                            @error('message')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Harga perbaikan :</label>
-                            <input id="price" type="text" class="form-control @error('price') is-invalid @enderror"
-                                name="price" required value="{{ old('price') }}">
-                            @error('price')
-                                <div class="invalid-feedback">
-                                    {{ $price }}
-                                </div>
-                            @enderror
-                        </div>
 
-                        <button type="submit" class="btn btn-md btn-primary">Selesaikan Order</button>
+
+                        <button type="submit" class="btn btn-md btn-primary">Konfirmasi Order</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-@endsection
-@section('scripts')
-    <script src="{{ asset('js/jquery-mask-money.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#price').maskMoney({
-                prefix: 'Rp.',
-                thousands: '.',
-                decimal: ',',
-            });
-
-            $('#confirm_order_form').submit(function() {
-                var price = $('#price').maskMoney('unmasked')[0];
-                $('#price').val(price);
-            });
-        });
-    </script>
 @endsection

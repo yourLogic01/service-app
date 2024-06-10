@@ -9,18 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ResetPassword extends Mailable
+class NewOrder extends Mailable
 {
     use Queueable, SerializesModels;
-
-    protected $token;
-
+    public $order;
     /**
      * Create a new message instance.
      */
-    public function __construct($token)
+    public function __construct($order)
     {
-        $this->token = $token;
+        $this->order = $order;
     }
 
     /**
@@ -29,7 +27,7 @@ class ResetPassword extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Samid Service - Reset Password Request',
+            subject: 'Samid Service - New Order has Received',
         );
     }
 
@@ -39,8 +37,7 @@ class ResetPassword extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.reset-password',
-            with: ['token' => $this->token]
+            view: 'mail.new-order',
         );
     }
 
