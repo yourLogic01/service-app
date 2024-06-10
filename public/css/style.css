@@ -718,3 +718,8 @@ a.more {
 .link-color {
     color: black !important;
 }
+@media (max-width: 767.98px) {
+    #navbarsService .dropdown-toggle .d-lg-inline {
+        display: inline !important;
+    }
+}

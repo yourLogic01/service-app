@@ -4,9 +4,9 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
         href="{{ Auth::user()->role->name == 'admin' ? route('admin.dashboard') : route('admin.orderIndex') }}">
         <div class="sidebar-brand-icon">
-            <img style="width: 3rem" src="{{ asset('img/JAS_NoBg.png') }}" alt="">
+            <img style="width: 2rem" src="{{ asset('images/logo.png') }}" alt="logo">
         </div>
-        <div class="sidebar-brand-text mx-3">Service-app</div>
+        <div class="sidebar-brand-text mx-3">{{ config('app.name') }}</div>
     </a>
 
     @if (Auth::user()->role->name == 'teknisi' || Auth::user()->role->name == 'admin')

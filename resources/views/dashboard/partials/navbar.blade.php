@@ -38,7 +38,7 @@
                         @foreach ($unconfirmedOrders as $order)
                             <a class="dropdown-item d-flex align-items-center"
                                 href="{{ route('admin.detailOrder', $order->id) }}">
-                                <div class="mr-3">
+                                <div class="mr-3 d-none d-md-block">
                                     <div class="icon-circle bg-primary">
                                         <i class="fas fa-file-alt text-white"></i>
                                     </div>
@@ -54,7 +54,7 @@
                         @foreach ($uncompleteOrders as $order)
                             <a class="dropdown-item d-flex align-items-center"
                                 href="{{ route('admin.completeOrderView', $order->id) }}">
-                                <div class="mr-3">
+                                <div class="mr-3 d-none d-md-block">
                                     <div class="icon-circle bg-primary">
                                         <i class="fas fa-file-alt text-white"></i>
                                     </div>
@@ -93,7 +93,7 @@
                         @foreach ($uncompleteOrders as $order)
                             <a class="dropdown-item d-flex align-items-center"
                                 href="{{ route('admin.completeOrderView', $order->id) }}">
-                                <div class="mr-3">
+                                <div class="mr-3 d-none d-md-block">
                                     <div class="icon-circle bg-primary">
                                         <i class="fas fa-file-alt text-white"></i>
                                     </div>
