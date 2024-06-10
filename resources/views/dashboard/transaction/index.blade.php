@@ -60,7 +60,7 @@
                     @foreach ($orders as $order)
                         <tr>
                             <td class="text-center">{{ $order->id }}</td>
-                            <td class="text-center">{{ $order->name }}</td>
+                            <td class="text-center">{{ $order->customer_name }}</td>
                             <td class="text-center">{{ $order->created_at->translatedFormat('l, d F Y') }}</td>
                             <td class="text-center">{{ $order->item->name }}</td>
                             <td class="text-center"><span class="badge text-bg-success text-white">Rp
@@ -78,131 +78,6 @@
 @endsection
 @section('script')
     <script>
-        // $(function() {
-        //     $('#daterange').daterangepicker({
-        //         opens: 'right',
-        //         ranges: {
-        //             'Today': [moment(), moment()],
-        //             'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        //             'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-        //             'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-        //             'This Month': [moment().startOf('month'), moment().endOf('month')],
-        //             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
-        //                 'month').endOf('month')]
-        //         }
-        //     }, function(start, end, label) {
-        //         loadTransactions(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
-        //     });
-
-        //     $('#exportPDFButton').click(function() {
-        //         // Ambil nilai terbaru dari date range picker
-        //         var startDate = $('#daterange').data('daterangepicker').startDate.format('YYYY-MM-DD');
-        //         var endDate = $('#daterange').data('daterangepicker').endDate.format('YYYY-MM-DD');
-
-        //         // Buat URL dengan nilai start_date dan end_date yang diperbarui
-        //         // var exportPDFUrl = '?start_date=' + startDate +
-        //         //     '&end_date=' + endDate;
-
-        //         // Redirect ke halaman PDF
-        //         window.location.href = exportPDFUrl;
-        //     });
-        //     // Function to load transactions via Ajax
-        //     function loadTransactions(startDate, endDate) {
-        //         $.ajax({
-        //             url: '{{ route('admin.loadTransactions') }}',
-        //             type: 'GET',
-        //             data: {
-        //                 start_date: startDate,
-        //                 end_date: endDate
-        //             },
-        //             success: function(response) {
-        //                 $('#myTable').DataTable().destroy();
-        //                 $('#myTable').DataTable({
-        //                     data: response.orders,
-        //                     columns: [{
-        //                             data: 'id',
-        //                             className: 'text-center'
-        //                         },
-        //                         {
-        //                             data: 'name',
-        //                             className: 'text-center'
-        //                         },
-        //                         {
-        //                             data: 'created_at',
-        //                             className: 'text-center',
-        //                             render: function(data, type, row) {
-        //                                 // Mengubah data tanggal ke dalam objek Date
-        //                                 var date = new Date(data);
-
-        //                                 // Array untuk menyimpan nama hari dalam bahasa Inggris
-        //                                 var days = ['Minggu', 'Senin', 'Selasa', 'Rabu',
-        //                                     'Kamis', 'Jumat', 'Sabtu'
-        //                                 ];
-
-        //                                 // Mendapatkan nama hari berdasarkan tanggal
-        //                                 var dayName = days[date.getDay()];
-
-        //                                 // Mendapatkan tanggal dalam format dd/mm/yyyy
-        //                                 var formattedDate = ('0' + date.getDate())
-        //                                     .slice(-2) + '/' + ('0' + (date.getMonth() +
-        //                                         1)).slice(-2) + '/' + date
-        //                                     .getFullYear();
-
-        //                                 // Mengembalikan tanggal yang diformat
-        //                                 return dayName + ', ' + formattedDate;
-        //                             }
-        //                         },
-        //                         {
-        //                             data: 'item.name',
-        //                             className: 'text-center'
-        //                         },
-        //                         {
-        //                             data: 'price',
-        //                             className: 'text-center',
-        //                             render: function(data, type, row) {
-        //                                 var totalPayment = row.price;
-
-        //                                 // Membuat sebuah elemen span dengan nilai yang diambil dari kolom data
-        //                                 var formattedTotalPayment =
-        //                                     '<span class="badge text-bg-success text-white">Rp. ' +
-        //                                     Number(totalPayment).toLocaleString(
-        //                                         'id-ID', {
-        //                                             minimumFractionDigits: 0
-        //                                         }) + '</span>';
-
-        //                                 // Mengembalikan HTML yang sudah diformat
-        //                                 return formattedTotalPayment;
-        //                             }
-        //                         },
-        //                         {
-        //                             data: 'actions',
-        //                             className: 'text-center',
-        //                             orderable: false
-        //                         },
-        //                     ],
-        //                     responsive: true,
-        //                     scrollX: true,
-        //                     order: [],
-        //                 });
-
-
-
-        //                 $('#totalTransaction').empty();
-        //                 var formattedTotalTransaction = 'Rp ' + Number(response.totalTransaction)
-        //                     .toLocaleString(
-        //                         'id-ID', {
-        //                             minimumFractionDigits: 0
-        //                         });
-        //                 $('#totalTransaction').append(
-        //                     formattedTotalTransaction
-        //                 );
-        //             },
-        //             error: function(xhr) {
-        //                 console.log('Error:', xhr.responseText);
-        //             }
-        //         });
-        //     }
-        // });
         $(function() {
             $('#daterange').daterangepicker({
                 opens: 'right',
@@ -222,7 +97,9 @@
             $('#exportPDFButton').click(function() {
                 var startDate = $('#daterange').data('daterangepicker').startDate.format('YYYY-MM-DD');
                 var endDate = $('#daterange').data('daterangepicker').endDate.format('YYYY-MM-DD');
-                var exportPDFUrl = '?start_date=' + startDate + '&end_date=' + endDate;
+                var exportPDFUrl = '{{ route('admin.transactionExportPDF') }}?start_date=' + startDate +
+                    '&end_date=' +
+                    endDate;
                 window.location.href = exportPDFUrl;
             });
 
@@ -243,7 +120,7 @@
                                     className: 'text-center'
                                 },
                                 {
-                                    data: 'name',
+                                    data: 'customer_name',
                                     className: 'text-center'
                                 },
                                 {
@@ -258,7 +135,7 @@
                                         var formattedDate = ('0' + date.getDate())
                                             .slice(-2) + '/' + ('0' + (date.getMonth() +
                                                 1)).slice(-2) + '/' + date
-                                        .getFullYear();
+                                            .getFullYear();
                                         return dayName + ', ' + formattedDate;
                                     }
                                 },

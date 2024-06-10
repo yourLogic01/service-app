@@ -12,7 +12,7 @@ class Order extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = [ 'user_id', 'name', 'teknisi_id', 'item_id', 'status', 'date', 'address', 'description', 'item_picture', 'price','message'];
+    protected $fillable = [ 'user_id', 'customer_name', 'teknisi_id', 'item_id', 'status', 'date', 'address', 'description', 'item_picture', 'price','message'];
 
 
 

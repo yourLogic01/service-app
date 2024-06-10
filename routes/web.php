@@ -34,6 +34,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('/storage-link', function () {
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    dd('storage link');
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/order', [OrderController::class, 'index'])->name('order');
 // blog
@@ -78,12 +83,17 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             Route::put('/order/canceled/{id}', [DashboardOrderController::class, 'canceledOrder'])->name('admin.canceledOrder');
             Route::put('/order/confirmed/{id}', [DashboardOrderController::class, 'confirmOrder'])->name('admin.confirmOrder');
             Route::get('/order/detail/{id}', [DashboardOrderController::class, 'detailOrder'])->name('admin.detailOrder');
+            Route::put('/order/complete/{id}', [DashboardOrderController::class, 'completedOrder'])->name('admin.completeOrder');
+            Route::get('/order/complete/{id}', [DashboardOrderController::class, 'completedOrderView'])->name('admin.completeOrderView');
+
+            
 
 
             // // Transaction
             Route::get('/transaction', [DashboardTransactionController::class, 'index'])->name('admin.transactionIndex');
             Route::get('/transaction/load-transactions', [DashboardTransactionController::class, 'loadTransactions'])->name('admin.loadTransactions');
-            Route::get('/transaction/export-pdf', [DashboardTransactionController::class, 'transactionExportPDF'])->name('admin.exportPDF');
+            Route::get('/transaction/export-pdf', [DashboardTransactionController::class, 'transactionExportPDF'])->name('admin.transactionExportPDF');
+            // Route::get('/transaction/export-pdf', [DashboardTransactionController::class, 'transactionExportPDF'])->name('admin.exportPDF');
             Route::get('/transaction/detail/{id}', [DashboardTransactionController::class, 'detailTransaction'])->name('admin.detailTransaction');
 
             // // User

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewOrder;
 use App\Models\IndexData;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -38,17 +41,25 @@ class OrderController extends Controller
          ]);
 
          $itemPicturePath = $request->file('item_picture')->store('item-picture', 'public');
-         Order::create([
+        $order = Order::create([
             'user_id' => auth()->user()->id,
             'item_id' => $request->item_id,
-            'name' => auth()->user()->name,
+            'customer_name' => auth()->user()->name,
             'date' => $request->date,
             'address' => $request->address,
             'description' => $request->description,
             'item_picture' => $itemPicturePath,
             'status' => 1
          ]);
-        
+        // Ambil email dari pengguna dengan role_id 1 dan 3
+        $recipientsRole1 = User::where('role_id', 1)->pluck('email')->toArray();
+        $recipientsRole3 = User::where('role_id', 3)->pluck('email')->toArray();
+
+        // Gabungkan email-email tersebut
+        $recipients = array_merge($recipientsRole1, $recipientsRole3);
+
+        // Kirim email ke semua penerima
+        Mail::to($recipients)->send(new NewOrder($order));
         return redirect()->route('order')->with('success', 'Order berhasil dilakukan');
     }
 }

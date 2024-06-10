@@ -68,6 +68,11 @@
         document.addEventListener('trix-file-accept', function(e) {
             e.preventDefault();
         })
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('date');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        });
     </script>
 @endsection
 @section('script')

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class DashboardTransactionController extends Controller
 {
@@ -15,7 +17,7 @@ class DashboardTransactionController extends Controller
     
         
         
-        $orders = Order::where('status', '>=', 2)
+        $orders = Order::where('status', '>=', 3)
         ->whereBetween('created_at', [$startDate, $endDate])
         ->with('item')
         ->get();
@@ -32,7 +34,8 @@ class DashboardTransactionController extends Controller
         $startDate = Carbon::parse($request->start_date)->startOfDay();
         $endDate = Carbon::parse($request->end_date)->endOfDay();
 
-        $orders = Order::whereBetween('created_at', [$startDate, $endDate])
+        $orders = Order::where('status', '>=', 3)
+            ->whereBetween('created_at', [$startDate, $endDate])
             ->with('item') // include related item data
             ->get();
 
@@ -67,6 +70,43 @@ class DashboardTransactionController extends Controller
         $order = Order::find($id);
         return view('dashboard.transaction.show', compact('order'))->with('item');
     }
+    public function transactionExportPDF(Request $request)
+    {
+        $startDate = Carbon::parse($request->start_date)->startOfDay();
+        $endDate = Carbon::parse($request->end_date)->endOfDay();
+
+    
+        $orders = Order::where('status', '>=', 3)
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->with('item')
+        ->get();
+    
+        $totalTransaction = $orders->sum('price');
+
+
+        // Load view template
+        $pdfView = view('dashboard.transaction.transaction-pdf', compact('orders', 'startDate', 'endDate', 'totalTransaction'));
+
+        // Create PDF
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($pdfView->render());
+
+        // (Optional) Set paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render PDF (optional: save to file)
+        $dompdf->render();
+
+        // Output PDF to browser
+        return $dompdf->stream('transactions.pdf');
+    }
+
+
+    
     // public function index()
     // {
         

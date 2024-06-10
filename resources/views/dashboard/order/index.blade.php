@@ -33,7 +33,7 @@
                     @foreach ($orders as $order)
                         <tr>
                             <td class="text-center">{{ $order->id }}</td>
-                            <td class="text-center">{{ $order->name }}</td>
+                            <td class="text-center">{{ $order->customer_name }}</td>
                             <td class="text-center">{{ $order->created_at->translatedFormat('l, d F Y') }}</td>
                             <td class="text-center">{{ $order->item->name }}</td>
                             <td class="text-center">
@@ -42,6 +42,8 @@
                                 @elseif($order->status == 1)
                                     <span class="badge text-bg-warning text-white">Butuh Konfirmasi</span>
                                 @elseif($order->status == 2)
+                                    <span class="badge text-bg-secondary text-white">Dalam Proses</span>
+                                @elseif($order->status == 3)
                                     <span class="badge text-bg-primary text-white">Sudah Bayar</span>
                                 @endif
                             </td>
@@ -60,7 +62,7 @@
                                                             <h1 class="modal-title fs-5"
                                                                 id="detailModal{{ $order->id }}">
                                                                 {{ $order->id }} |
-                                                                {{ $order->name }}
+                                                                {{ $order->customer_name }}
                                                             </h1>
                                                         </div>
                                                         <div class="col-md-3">
@@ -71,6 +73,9 @@
                                                                 <span class="badge text-bg-warning text-white">Butuh
                                                                     Konfirmasi</span>
                                                             @elseif($order->status == 2)
+                                                                <span class="badge text-bg-primary text-white">Dalam
+                                                                    Proses</span>
+                                                            @elseif($order->status == 3)
                                                                 <span class="badge text-bg-primary text-white">Sudah
                                                                     Bayar</span>
                                                             @endif
@@ -160,77 +165,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @if ($order->status == 1)
-                                        {{-- <!-- Button konfirmasi modal -->
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#konfirmModal{{ $order->id }}">
-                                            Konfirmasi Order
-                                        </button>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="konfirmModal{{ $order->id }}" tabindex="-1"
-                                            aria-labelledby="konfirmModalLabel{{ $order->id }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5"
-                                                            id="konfirmModalLabel{{ $order->id }}">Konfirmasi Order
-                                                        </h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>konfirmasi Order dengan ID {{ $order->id }}</p>
-                                                        <form id="confirm_order_form{{ $order->id }}" class="mt-3"
-                                                            action="{{ route('admin.confirmOrder', $order->id) }}"
-                                                            method="POST">
-                                                            @method('PUT')
-                                                            @csrf
-                                                            <div class="mb-3">
-                                                                <label for="message{{ $order->id }}"
-                                                                    class="form-label">Keterangan perbaikan :</label>
-                                                                <input id="message{{ $order->id }}" type="text"
-                                                                    class="form-control @error('message') is-invalid @enderror"
-                                                                    name="message" required value="{{ old('message') }}">
-                                                                @error('message')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="price{{ $order->id }}"
-                                                                    class="form-label">Harga perbaikan :</label>
-                                                                <input id="price{{ $order->id }}" type="text"
-                                                                    class="form-control @error('price') is-invalid @enderror"
-                                                                    name="price" required value="{{ old('price') }}">
-                                                                @error('price')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $price }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary btn-sm"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-sm btn-primary">Selesaikan
-                                                                    Order</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
+                                    @if ($order->status == 1 && Auth::user()->role->name == 'admin')
                                         <a href="{{ route('admin.detailOrder', $order->id) }}"
                                             class="btn btn-sm btn-primary">Konfirmasi Order</a>
-                                        {{-- <form action="" method="POST">
-                                            @method('PUT')
-                                            @csrf
-                                            <button type="submit" class="btn btn-primary btn-sm">Konfirmasi
-                                                Order</button>
-                                        </form> --}}
-                                        <!-- Button batal modal -->
+
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#batalModal{{ $order->id }}">
                                             Batal
@@ -276,7 +214,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    @elseif ($order->status == 2)
+                                        <a href="{{ route('admin.completeOrderView', $order->id) }}"
+                                            class="btn btn-sm btn-primary">Selesaikan Order</a>
                                     @endif
+
                                 </div>
                             </td>
                         </tr>
