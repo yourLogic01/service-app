@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/storage-link', function () {
     \Illuminate\Support\Facades\Artisan::call('storage:link');
-    dd('storage link');
+    dd('storage link');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

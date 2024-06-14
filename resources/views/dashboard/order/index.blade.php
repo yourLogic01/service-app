@@ -227,7 +227,7 @@
             </table>
         </div>
     @endsection
-    @section('scripts')
+    {{-- @section('scripts')
         <script src="{{ asset('js/jquery-mask-money.js') }}"></script>
         <script>
             $(document).ready(function() {
@@ -244,4 +244,4 @@
                 });
             });
         </script>
-    @endsection
+    @endsection --}}

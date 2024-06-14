@@ -37,7 +37,8 @@
 
     {{-- Summernote --}}
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-
+    <!-- Favicon  -->
+    <link rel="icon" href="{{ asset('images/logo.png') }}">
     {{-- trix cdn --}}
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
