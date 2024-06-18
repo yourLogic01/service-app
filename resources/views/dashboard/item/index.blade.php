@@ -21,9 +21,9 @@
             <table class="table table-hover text-nowrap" id="myTable" style="width: 100%">
                 <thead>
                     <tr>
-                        <th class="text-center align-middle" >#</th>
-                        <th class="text-center align-middle" >Nama</th>
-                        <th class="text-center align-middle" >Aksi</th>
+                        <th class="text-center align-middle">#</th>
+                        <th class="text-center align-middle">Nama</th>
+                        <th class="text-center align-middle">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +42,8 @@
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="detailModal{{ $data->id }}">Detail Barang</h1>
+                                                    <h1 class="modal-title fs-5" id="detailModal{{ $data->id }}">Detail
+                                                        Barang</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -96,7 +97,7 @@
                     var form = this.closest('.deleteForm');
 
                     Swal.fire({
-                        title: 'Hapus Request',
+                        title: 'Hapus Barang',
                         text: "Apakah Anda Yakin Untuk Menghapus?",
                         icon: 'warning',
                         showCancelButton: true,
