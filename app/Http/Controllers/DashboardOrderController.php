@@ -111,9 +111,16 @@ class DashboardOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        if(!$order) {
+            session()->flash('error', 'Data order tidak ditemukan');
+            return redirect()->back();
+        }
+        $order->delete();
+        session()->flash('success', 'Data order berhasil dihapus');
+        return redirect()->route('admin.orderIndex');       
     }
     public function confirmOrder(Request $request, $id)
     {

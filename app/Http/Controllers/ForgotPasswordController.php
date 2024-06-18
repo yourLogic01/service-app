@@ -74,6 +74,8 @@ class ForgotPasswordController extends Controller
         $token = PasswordResetToken::where('token', $request->token)->first();
         $user = User::where('email', $token->email)->first();
 
+        dd($token);
+
         if (!$user) {
             return redirect()->route('login')->with('error', 'Email tidak terdaftar');
         }

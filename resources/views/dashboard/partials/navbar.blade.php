@@ -22,7 +22,7 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Orders -->
-                    @if ($unconfirmedOrdersCount > 0)
+                    @if ($unconfirmedOrdersCount > 0 || $uncompleteOrdersCount > 0)
                         <span
                             class="badge badge-danger badge-counter">{{ $unconfirmedOrdersCount + $uncompleteOrdersCount }}</span>
                     @endif
@@ -32,7 +32,7 @@
                     <h6 class="dropdown-header">
                         Order Notifications
                     </h6>
-                    @if ($unconfirmedOrders->isEmpty())
+                    @if ($unconfirmedOrders->isEmpty() && $uncompleteOrders->isEmpty())
                         <a class="dropdown-item text-center small text-gray-500" href="#">No new orders</a>
                     @else
                         @foreach ($unconfirmedOrders as $order)

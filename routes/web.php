@@ -85,6 +85,7 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             Route::get('/order/detail/{id}', [DashboardOrderController::class, 'detailOrder'])->name('admin.detailOrder');
             Route::put('/order/complete/{id}', [DashboardOrderController::class, 'completedOrder'])->name('admin.completeOrder');
             Route::get('/order/complete/{id}', [DashboardOrderController::class, 'completedOrderView'])->name('admin.completeOrderView');
+            Route::delete('/order/delete/{id}', [DashboardOrderController::class, 'destroy'])->name('admin.orderDelete');
 
             
 

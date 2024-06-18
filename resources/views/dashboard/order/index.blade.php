@@ -218,7 +218,15 @@
                                         <a href="{{ route('admin.completeOrderView', $order->id) }}"
                                             class="btn btn-sm btn-primary">Selesaikan Order</a>
                                     @endif
-
+                                    <form class="deleteForm" action="{{ route('admin.orderDelete', $order->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"
+                                            type="button" class="btn btn-sm btn-danger deleteButton">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -226,6 +234,31 @@
                 </tbody>
             </table>
         </div>
+    @endsection
+    @section('script')
+        <script>
+            var deleteButtons = document.querySelectorAll('.deleteButton');
+
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var form = this.closest('.deleteForm');
+
+                    Swal.fire({
+                        title: 'Hapus Order',
+                        text: "Apakah Anda Yakin Untuk Menghapus?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        </script>
     @endsection
     {{-- @section('scripts')
         <script src="{{ asset('js/jquery-mask-money.js') }}"></script>
