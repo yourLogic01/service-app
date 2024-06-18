@@ -96,7 +96,7 @@
                     var form = this.closest('.deleteForm');
 
                     Swal.fire({
-                        title: 'Hapus Request',
+                        title: 'Hapus Item',
                         text: "Apakah Anda Yakin Untuk Menghapus?",
                         icon: 'warning',
                         showCancelButton: true,
