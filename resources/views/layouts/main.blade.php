@@ -27,6 +27,7 @@
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     <!-- Favicon  -->
     <link rel="icon" href="{{ asset('images/logo.png') }}">
+    @laravelPWA
 </head>
 
 <body>

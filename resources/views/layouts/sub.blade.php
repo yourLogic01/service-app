@@ -32,6 +32,7 @@
     </style>
     <!-- Favicon  -->
     <link rel="icon" href="{{ asset('images/logo.png') }}">
+    @laravelPWA
 </head>
 
 <body>
