@@ -27,8 +27,10 @@
                 <div class="col-lg-12">
                     <div class="intro-excerpt">
                         <h1>Punya Barang Rusak?</h1>
-                        <p class="mb-4">Jangan hawatir, disini anda bisa menghubungi jasa kami untuk memperbaiki barang alat elektronik anda yang rusak dan tidak terpakai.</p>
-                        <p><a href="{{ route('order') }}" class="btn btn-secondary me-2">Order Now</a><a href="#explore" class="btn btn-white-outline">Explore</a></p>
+                        <p class="mb-4">Jangan hawatir, disini anda bisa menghubungi jasa kami untuk memperbaiki barang
+                            alat elektronik anda yang rusak dan tidak terpakai.</p>
+                        <p><a href="{{ route('order') }}" class="btn btn-secondary me-2">Order Sekarang</a><a
+                                href="#explore" class="btn btn-white-outline">Explore</a></p>
                     </div>
                 </div>
                 {{-- <div class="col-md-7">
@@ -58,5 +60,3 @@
     </div>
     <!-- End Hero Section for Shop -->
 @endif
-
-

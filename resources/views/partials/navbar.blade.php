@@ -37,7 +37,7 @@
                                 </a></li>
                             <li><a class="dropdown-item link-color" href="{{ route('user.OrderHistory') }}">
                                     <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>
-                                    Transaction History
+                                    Riwayat Transaksi
                                 </a></li>
                             <li>
                                 <hr class="dropdown-divider">
