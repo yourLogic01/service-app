@@ -20,10 +20,11 @@
                     <div class="mb-3">
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nama</label>
-                        <input type="text" class="form-control form-control-custom @error('name') is-invalid @enderror"
-                            id="name" name="name" value="{{ old('name') }}"></input>
-                        @error('name')
+                        <label for="customer_name" class="form-label">Nama</label>
+                        <input type="text"
+                            class="form-control form-control-custom @error('customer_name') is-invalid @enderror"
+                            id="customer_name" name="customer_name" value="{{ old('customer_name') }}"></input>
+                        @error('customer_name')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
