@@ -83,7 +83,7 @@
                         <li>Dan Lain Lain</li>
                     </ul>
                     <p class="fs-5">Butuh bantuan dan tertarik menggunakan jasa kami? </p><a href="{{ route('order') }}"
-                        class="btn btn-dark">Order Now</a>
+                        class="btn btn-dark">Order Sekarang</a>
                 </div>
             </div>
         </div>

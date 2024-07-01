@@ -48,7 +48,7 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="description" class="form-label">Jelaskan keadaan barang anda secara description!</label>
+                        <label for="description" class="form-label">Jelaskan keadaan barang anda secara detail!</label>
                         @error('description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
