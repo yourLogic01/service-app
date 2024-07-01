@@ -37,6 +37,7 @@ class DashboardOrderController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'address' => 'required',
             'date' => 'required',
@@ -44,7 +45,7 @@ class DashboardOrderController extends Controller
             'customer_name' => 'required',
             'item_id' => 'required',
             'description' => 'required',
-            'item_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'item_picture' => 'required|image|mimes:jpeg,png,jpg',
         ],
         [
         'customer_name.required' => 'Nama harus diisi',
@@ -64,12 +65,12 @@ class DashboardOrderController extends Controller
             'item_id' => $request->item_id,
             'teknisi_id' => auth()->user()->id,
             'price' => $request->price,
-            'customer_name' => $request->name,
+            'customer_name' => $request->customer_name,
             'date' => $request->date,
             'address' => $request->address,
             'description' => $request->description,
             'item_picture' => $itemPicturePath,
-            'status' => 2
+            'status' => 3
          ]);
         
         return redirect()->route('admin.orderIndex')->with('success', 'Order berhasil dilakukan');
